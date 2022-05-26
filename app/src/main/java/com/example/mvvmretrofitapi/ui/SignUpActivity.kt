@@ -55,7 +55,7 @@ class SignUpActivity : AppCompatActivity() {
 
         //observing user Response
         signUpViewModel.response.observe(this, Observer {
-            Log.d("user", it.user.toString())
+            Log.d("user", it.toString())
         })
 
 

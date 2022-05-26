@@ -9,11 +9,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mvvmretrofitapi.application.MyApplication
 import com.example.mvvmretrofitapi.databinding.ActivityLoginBinding
+import com.example.mvvmretrofitapi.models.ApiResponse
 import com.example.mvvmretrofitapi.models.LoginData
 import com.example.mvvmretrofitapi.viewmodel.LoginViewModel
 import com.example.mvvmretrofitapi.viewmodel.LoginViewModelFactory
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var loginViewModel: LoginViewModel
@@ -44,10 +48,25 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             //observing user Response
             loginViewModel.validateApiResponse.observe(this, Observer {
-                Log.d("UserData", it.user.toString())
-                //sending data to another activity
-                intent!!.putExtra("UserData", it.user.toString())
-                startActivity(intent)
+
+                it.enqueue(object : Callback<ApiResponse>{
+                    override fun onResponse(
+                        call: Call<ApiResponse>,
+                        response: Response<ApiResponse>
+                    ) {
+                        Log.d("KRISHNA", response.body().toString())
+                    }
+
+                    override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                        Log.d("KRISHNA", t.message.toString())
+                    }
+
+                })
+
+//                Log.d("UserData", it.user.toString())
+//                //sending data to another activity
+//                intent!!.putExtra("UserData", it.user.toString())
+//                startActivity(intent)
 
             })
 

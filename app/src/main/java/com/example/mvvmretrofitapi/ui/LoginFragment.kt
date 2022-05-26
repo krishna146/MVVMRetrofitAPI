@@ -60,8 +60,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             var userData: String? = null
             //observing user Response
             loginViewModel.validateApiResponse.observe(requireActivity(), Observer {
-                Log.d("UserData", it.user.toString())
-                userData = it.user.toString()
+                Log.d("UserData", it.toString())
+                userData = it.toString()
                 val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment(userData!!)
                 findNavController().navigate(action)
 
