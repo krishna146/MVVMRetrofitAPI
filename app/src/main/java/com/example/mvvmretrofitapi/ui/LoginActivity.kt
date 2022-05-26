@@ -83,6 +83,8 @@ class LoginActivity : AppCompatActivity() {
         super.onPause()
         finish()
     }
+    /* hello js2
+    */
 
 }
 
